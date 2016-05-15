@@ -1,6 +1,5 @@
 import sys
 import json
-import urllib.request
 
 from bs4 import BeautifulSoup
 
@@ -26,14 +25,3 @@ def pick_count_list(res):
   for rect in soup.find_all('rect'):
     lists.append(rect['data-count'])
   return lists
-
-
-url = 'https://github.com/users/hnmx4/contributions'
-lists = pick_count_list(urllib.request.urlopen(url))
-weekly = lists[-7:]
-
-weekly_contributions = 0
-for day in weekly:
-  weekly_contributions += int(day)
-
-print(weekly_contributions)
