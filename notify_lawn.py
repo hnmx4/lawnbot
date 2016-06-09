@@ -30,7 +30,7 @@ def say_contributions():
     url = 'https://github.com/users/' + get_key(dotenv_path, 'USER') + '/contributions'
     lists = gc.pick_count_list(urllib2.urlopen(urllib2.Request(url)))
     weekly = lists[-7:]
-    yesterday = int(lists[-2])
+    yesterday = int(lists[-1])
 
     wc = 0
     for day in weekly:
