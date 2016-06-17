@@ -15,10 +15,10 @@ def pick_dayly_count(url, opt='dict'):
   for rect in soup.find_all('rect'):
     if opt == 'dict':
       data[rect['data-date']] = rect['data-count']
-    else if opt == 'list':
+    elif opt == 'list':
       counts.append(rect['data-count'])
 
   if opt == 'dict':
     return data
-  else if opt == 'list':
+  elif opt == 'list':
     return counts
