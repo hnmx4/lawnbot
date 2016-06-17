@@ -28,8 +28,9 @@ def lawns(con):
 
 def say_contributions():
     url = 'https://github.com/users/' + get_key(dotenv_path, 'USER') + '/contributions'
-    lists = gc.pick_count_list(urllib2.urlopen(urllib2.Request(url)))
-    weekly = lists[-7:]
+    data = gc.pick_dayly_count(url)
+    counts = gc.pick_dayly_count(url, 'list')
+    weekly = counts[-7:]
     yesterday = int(lists[-1])
 
     wc = 0
@@ -44,18 +45,6 @@ def say_contributions():
         mesg = ':new_moon_with_face:'
 
     outputs.append([CHANNEL_ID, mesg])
-
-
-# def process_message(data):
-#     words = ['今週'.decode('utf-8'), '草'.decode('utf-8')]
-#     if data['channel'] == CHANNEL_ID:
-#         flag = True
-#         for word in words:
-#             if data['text'].find(word) == -1:
-#                 flag = False
-
-#         if (flag):
-#             outputs.append([CHANNEL_ID, lawns[pick_weekly_contributions()]])
 
 
 say_contributions()

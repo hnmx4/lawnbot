@@ -1,27 +1,24 @@
+# -*- coding:utf-8 -*-
+
 import sys
 import json
-
+import urllib2
 from bs4 import BeautifulSoup
 
 
-def pick_count_w_date_list(res):
-  lists = []
-  dict_obj = {}
+def pick_dayly_count(url, opt='dict'):
+  res = urllib2.urlopen(urllib2.Request(url))
+  data = {}
+  counts = []
   html = res.read()
   soup = BeautifulSoup(html, 'html.parser')
   for rect in soup.find_all('rect'):
-    dict_obj = {
-      'data-date'  : rect['data-date'],
-      'data-count' : rect['data-count']
-      }
-    lists.append(dict_obj)
-  return lists
+    if opt == 'dict':
+      data[rect['data-date']] = rect['data-count']
+    else if opt == 'list':
+      counts.append(rect['data-count'])
 
-
-def pick_count_list(res):
-  lists = []
-  html = res.read()
-  soup = BeautifulSoup(html, 'html.parser')
-  for rect in soup.find_all('rect'):
-    lists.append(rect['data-count'])
-  return lists
+  if opt == 'dict':
+    return data
+  else if opt == 'list':
+    return counts
