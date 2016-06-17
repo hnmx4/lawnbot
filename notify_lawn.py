@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
-import time
+import datetime
 import urllib2
-import get_contributions as gc
-
 from dotenv import get_key
 from os.path import join, dirname
+
+import get_contributions as gc
 
 
 def denv(key):
@@ -31,17 +31,17 @@ def say_contributions():
     url = 'https://github.com/users/' + denv('USER') + '/contributions'
     data = gc.pick_dayly_count(url)
     counts = gc.pick_dayly_count(url, 'list')
-    weekly = counts[-7:]
-    yesterday = int(lists[-1])
-
+    yday = datetime.date.today() - datetime.timedelta(1)
+    yday = yday.strftime('%Y-%m-%d')
+    yc = data[yday]
     wc = 0
-    for day in weekly:
+    for day in counts[-7:]:
         wc += int(day)
 
     mesg = ''
     if wc > 0:
         for i in range(0, wc):
-            mesg += lawns(yesterday)
+            mesg += lawns(yc)
     else:
         mesg = ':new_moon_with_face:'
 
