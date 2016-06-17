@@ -8,12 +8,13 @@ from dotenv import get_key
 from os.path import join, dirname
 
 
-dotenv_path = join(dirname(__file__), '.env')
+def denv(key):
+    return get_key(join(dirname(__file__), '.env'), key)
 
 crontable = []
 outputs = []
 
-CHANNEL_ID = get_key(dotenv_path, 'CHANNEL_ID')
+CHANNEL_ID = denv('CHANNEL_ID')
 def lawns(con):
     if con < 5:
         e_lists = { 0:':fallen_leaf:',
@@ -27,7 +28,7 @@ def lawns(con):
 
 
 def say_contributions():
-    url = 'https://github.com/users/' + get_key(dotenv_path, 'USER') + '/contributions'
+    url = 'https://github.com/users/' + denv('USER') + '/contributions'
     data = gc.pick_dayly_count(url)
     counts = gc.pick_dayly_count(url, 'list')
     weekly = counts[-7:]
