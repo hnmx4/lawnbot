@@ -8,20 +8,22 @@ from os.path import join, dirname
 import get_contributions as gc
 
 
+crontable = []
+outputs = []
+CHANNEL_ID = denv('CHANNEL_ID')
+
+
 def denv(key):
     return get_key(join(dirname(__file__), '.env'), key)
 
-crontable = []
-outputs = []
 
-CHANNEL_ID = denv('CHANNEL_ID')
 def lawns(con):
     if con < 5:
-        e_lists = { 0:':fallen_leaf:',
-                    1:':seedling:',
-                    2:':herb:',
-                    3:':deciduous_tree:',
-                    4:':cherry_blossom:'}
+        e_lists = { 0: ':fallen_leaf:',
+                    1: ':seedling:',
+                    2: ':herb:',
+                    3: ':deciduous_tree:',
+                    4: ':cherry_blossom:'}
         return e_lists[con]
     else:
         return ':cherry_blossom:'
