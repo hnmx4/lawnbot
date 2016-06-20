@@ -33,7 +33,7 @@ def say_contributions():
     counts = gc.pick_dayly_count(url, 'list')
     yday = datetime.date.today() - datetime.timedelta(1)
     yday = yday.strftime('%Y-%m-%d')
-    yc = data[yday]
+    yc = int(data[yday])
     wc = 0
     for day in counts[-7:]:
         wc += int(day)
