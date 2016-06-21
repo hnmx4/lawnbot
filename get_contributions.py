@@ -15,15 +15,16 @@ level = {
 }
 
 
-def scrap(url):
+def scrap(username):
+  url = 'https://github.com/users/' + username + '/contributions'
   html = urllib2.urlopen(urllib2.Request(url)).read()
   return BeautifulSoup(html, 'html.parser')
 
 
-def pick_dayly_level(url, opt='dict'):
+def pick_dayly_level(username, opt='dict'):
   data = {}
   counts = []
-  soup = scrap(url)
+  soup = scrap(username)
   for rect in soup.find_all('rect'):
     if opt == 'dict':
       data[rect['data-date']] = level[rect['fill']]
@@ -36,10 +37,10 @@ def pick_dayly_level(url, opt='dict'):
     return counts
 
 
-def pick_dayly_count(url, opt='dict'):
+def pick_dayly_count(username, opt='dict'):
   data = {}
   counts = []
-  soup = scrap(url)
+  soup = scrap(username)
   for rect in soup.find_all('rect'):
     if opt == 'dict':
       data[rect['data-date']] = rect['data-count']

@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import datetime
-import urllib2
 from dotenv import get_key
 from os.path import join, dirname
 
@@ -13,6 +12,7 @@ def denv(key):
 
 
 CHANNEL_ID = denv('CHANNEL_ID')
+USER = denv('USER')
 crontable = []
 outputs = []
 emoji = { 0: ':fallen_leaf:',
@@ -23,9 +23,8 @@ emoji = { 0: ':fallen_leaf:',
 
 
 def say_contributions():
-    url = 'https://github.com/users/' + denv('USER') + '/contributions'
-    level = gc.pick_dayly_level(url)
-    counts = gc.pick_dayly_count(url, 'list')
+    level = gc.pick_dayly_level(USER)
+    counts = gc.pick_dayly_count(USER, 'list')
     yday = datetime.date.today() - datetime.timedelta(1)
     yday = yday.strftime('%Y-%m-%d')
     yc = int(level[yday])
