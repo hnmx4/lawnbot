@@ -8,34 +8,27 @@ from os.path import join, dirname
 import get_contributions as gc
 
 
-crontable = []
-outputs = []
-CHANNEL_ID = denv('CHANNEL_ID')
-
-
 def denv(key):
     return get_key(join(dirname(__file__), '.env'), key)
 
 
-def lawns(con):
-    if con < 5:
-        e_lists = { 0: ':fallen_leaf:',
-                    1: ':seedling:',
-                    2: ':herb:',
-                    3: ':deciduous_tree:',
-                    4: ':cherry_blossom:'}
-        return e_lists[con]
-    else:
-        return ':cherry_blossom:'
+CHANNEL_ID = denv('CHANNEL_ID')
+crontable = []
+outputs = []
+emoji = { 0: ':fallen_leaf:',
+          1: ':seedling:',
+          2: ':herb:',
+          3: ':deciduous_tree:',
+          4: ':cherry_blossom:'}
 
 
 def say_contributions():
     url = 'https://github.com/users/' + denv('USER') + '/contributions'
-    data = gc.pick_dayly_count(url)
+    level = gc.pick_dayly_level(url)
     counts = gc.pick_dayly_count(url, 'list')
     yday = datetime.date.today() - datetime.timedelta(1)
     yday = yday.strftime('%Y-%m-%d')
-    yc = int(data[yday])
+    yc = int(level[yday])
     wc = 0
     for day in counts[-7:]:
         wc += int(day)
@@ -43,7 +36,7 @@ def say_contributions():
     mesg = ''
     if wc > 0:
         for i in range(0, wc):
-            mesg += lawns(yc)
+            mesg += emoji[yc]
     else:
         mesg = ':new_moon_with_face:'
 
