@@ -1,0 +1,13 @@
+emoji:
+  0: ':fallen_leaf:'
+  1: ':seedling:'
+  2: ':herb:'
+  3: ':deciduous_tree:'
+  4: ':cherry_blossom:'
+
+level:
+  '#eeeeee': 0,
+  '#d6e685': 1,
+  '#8cc665': 2,
+  '#44a340': 3,
+  '#1e6823': 4

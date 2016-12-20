@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
-
 import datetime
 import urllib2
-import sys
-import json
+import yaml
 
 from dotenv import get_key
 from bs4 import BeautifulSoup
 from os.path import join, dirname
+
 
 def denv(key):
     return get_key(join(dirname(__file__), '.env'), key)
@@ -15,29 +14,22 @@ def denv(key):
 
 CHANNEL_ID = denv('CHANNEL_ID')
 USER = denv('USER')
+CONF_FILE = join(dirname(__file__), 'conf.yml')
+
+f = open(CONF_FILE, 'r')
+config = yaml.load(f)
+f.close
+
+emoji = config['emoji']
+level = config['level']
 crontable = []
 outputs = []
-emoji = {
-    0: ':fallen_leaf:',
-    1: ':seedling:',
-    2: ':herb:',
-    3: ':deciduous_tree:',
-    4: ':cherry_blossom:'
-}
-
-level = {
-    '#eeeeee': 0,
-    '#d6e685': 1,
-    '#8cc665': 2,
-    '#44a340': 3,
-    '#1e6823': 4
-}
 
 
 def scrap(username):
-  url = 'https://github.com/users/' + username + '/contributions'
-  html = urllib2.urlopen(urllib2.Request(url)).read()
-  return BeautifulSoup(html, 'html.parser')
+    url = 'https://github.com/users/' + username + '/contributions'
+    html = urllib2.urlopen(urllib2.Request(url)).read()
+    return BeautifulSoup(html, 'html.parser')
 
 
 def pick_dayly_level(username, opt='dict'):
