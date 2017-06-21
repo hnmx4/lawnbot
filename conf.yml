@@ -6,9 +6,9 @@ emoji:
   4: ':cherry_blossom:'
 
 level:
-  '#ebedf0': 0,
-  '#c6e48b': 1,
-  '#7bc96f': 2,
-  '#239a3b': 3,
+  '#ebedf0': 0
+  '#c6e48b': 1
+  '#7bc96f': 2
+  '#239a3b': 3
   '#196127': 4
 
