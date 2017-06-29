@@ -66,7 +66,7 @@ class Notification(Plugin):
     def process_message(self, data):
         config = self.configure()
         emoji = config['emoji']
-        user = environ.get('USER')
+        user = environ.get('GITHUB_USERNAME')
 
         level = self.pick_dayly_level(user)
         counts = self.pick_dayly_count(user, 'list')
